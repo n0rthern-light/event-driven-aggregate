@@ -1,9 +1,9 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use JsonSerializable;
-use Nl\Event\Aggregate\Tests\Common\Md5Uuid;
+use Nlf\Component\Event\Aggregate\Tests\Common\Md5Uuid;
 use PHPUnit\Framework\TestCase;
 
 class AbstractAggregateRootTest extends TestCase

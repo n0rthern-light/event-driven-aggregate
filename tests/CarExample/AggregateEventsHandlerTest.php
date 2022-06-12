@@ -1,11 +1,11 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nl\Event\Aggregate\AggregateEventsHandler;
-use Nl\Event\Aggregate\EventStoreInterface;
-use Nl\Event\Aggregate\Tests\Common\Md5Uuid;
-use Nl\Event\Aggregate\Tests\Common\MemoryEventStore;
+use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
+use Nlf\Component\Event\Aggregate\EventStoreInterface;
+use Nlf\Component\Event\Aggregate\Tests\Common\Md5Uuid;
+use Nlf\Component\Event\Aggregate\Tests\Common\MemoryEventStore;
 use PHPUnit\Framework\TestCase;
 
 class AggregateEventsHandlerTest extends TestCase

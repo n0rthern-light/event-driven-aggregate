@@ -1,10 +1,10 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\Common;
+namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
-use Nl\Event\Aggregate\AbstractAggregateRoot;
-use Nl\Event\Aggregate\AggregateUuidInterface;
-use Nl\Event\Aggregate\EventStoreInterface;
+use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\EventStoreInterface;
 
 class MemoryEventStore implements EventStoreInterface
 {

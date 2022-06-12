@@ -1,6 +1,6 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\Common;
+namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
 class MemoryDatabase
 {

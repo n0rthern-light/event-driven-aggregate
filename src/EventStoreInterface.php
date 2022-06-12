@@ -1,6 +1,6 @@
 <?php
 
-namespace Nl\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate;
 
 interface EventStoreInterface
 {

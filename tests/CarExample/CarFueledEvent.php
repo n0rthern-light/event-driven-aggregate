@@ -1,6 +1,6 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use JsonSerializable;
 

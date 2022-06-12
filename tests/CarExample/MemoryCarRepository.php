@@ -1,10 +1,10 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nl\Event\Aggregate\AggregateEventsHandler;
-use Nl\Event\Aggregate\AggregateUuidInterface;
-use Nl\Event\Aggregate\Tests\Common\MemoryDatabase;
+use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
+use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
 
 class MemoryCarRepository implements CarRepositoryInterface
 {

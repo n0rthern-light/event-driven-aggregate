@@ -1,8 +1,8 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nl\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
 interface CarRepositoryInterface
 {

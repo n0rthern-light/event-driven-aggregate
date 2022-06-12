@@ -5,8 +5,8 @@
     "license": "ISC",
     "autoload": {
         "psr-4": {
-            "Nl\\Event\\Aggregate\\": "src/",
-            "Nl\\Event\\Aggregate\\Tests\\": "tests/"
+            "Nlf\\Component\\Event\\Aggregate\\": "src/",
+            "Nlf\\Component\\Event\\Aggregate\\Tests\\": "tests/"
         }
     },
     "authors": [

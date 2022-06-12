@@ -1,9 +1,9 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nl\Event\Aggregate\AbstractAggregateRoot;
-use Nl\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
 class Car extends AbstractAggregateRoot
 {

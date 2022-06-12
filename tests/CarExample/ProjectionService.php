@@ -1,10 +1,10 @@
 <?php
 
-namespace Nl\Event\Aggregate\Tests\CarExample;
+namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nl\Event\Aggregate\AbstractAggregateRoot;
-use Nl\Event\Aggregate\ProjectionServiceInterface;
-use Nl\Event\Aggregate\Tests\Common\MemoryDatabase;
+use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\ProjectionServiceInterface;
+use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
 
 class ProjectionService implements ProjectionServiceInterface
 {
