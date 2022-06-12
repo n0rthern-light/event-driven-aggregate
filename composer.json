@@ -1,0 +1,22 @@
+{
+    "name": "nl/event-driven-aggregate",
+    "description": "An abstract aggregate root for event sourced projects",
+    "type": "library",
+    "license": "ISC",
+    "autoload": {
+        "psr-4": {
+            "Nl\\Event\\Aggregate\\": "src/",
+            "Nl\\Event\\Aggregate\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "n0rthern-light",
+            "email": "n0rthern-light@github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
