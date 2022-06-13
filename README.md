@@ -1,7 +1,7 @@
 # nlf-component-event-driven-aggregate
 Interface for Event Driven Aggregate used in Event Sourcing &amp; CQRS applications.
 
-Example `Car` aggregate, available in _test_ directory:
+Example `Car` aggregate, available in _`tests`_ directory:
 ```php
 <?php
 
