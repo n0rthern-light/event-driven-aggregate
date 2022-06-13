@@ -4,24 +4,34 @@ namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
-use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
+use Nlf\Component\Event\Aggregate\EventStoreInterface;
 
 class MemoryCarRepository implements CarRepositoryInterface
 {
+    private EventStoreInterface $eventStore;
     private AggregateEventsHandler $aggregateEventsHandler;
 
-    public function __construct(AggregateEventsHandler $aggregateEventsHandler)
-    {
+    public function __construct(
+        EventStoreInterface $eventStore,
+        AggregateEventsHandler $aggregateEventsHandler
+    ) {
+        $this->eventStore = $eventStore;
         $this->aggregateEventsHandler = $aggregateEventsHandler;
     }
 
     public function get(AggregateUuidInterface $uuid): ?Car
     {
-        return MemoryDatabase::$array[(string)$uuid] ?? null;
+        $events = $this->eventStore->getEvents($uuid);
+
+        if (\count($events) === 0) {
+            return null;
+        }
+
+        return (new EventsCarFactory($uuid))->create($events);
     }
 
     public function save(Car $car): void
     {
-        $this->aggregateEventsHandler->processAggregateEvents($car);
+        $this->aggregateEventsHandler->commitAggregateEvents($car);
     }
 }

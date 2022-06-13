@@ -15,7 +15,7 @@ class AggregateEventsHandler
         $this->projectionService = $projectionService;
     }
 
-    public function processAggregateEvents(AbstractAggregateRoot $aggregate): void
+    public function commitAggregateEvents(AbstractAggregateRoot $aggregate): void
     {
         $events = $aggregate->pullEvents();
 
