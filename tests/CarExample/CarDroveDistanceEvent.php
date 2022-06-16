@@ -32,7 +32,7 @@ class CarDroveDistanceEvent extends AbstractAggregateEvent
         return $this->fuelConsumed;
     }
 
-    protected function getJsonPayload(): array
+    public function getJsonPayload(): array
     {
         return [
             'distance' => $this->distance,

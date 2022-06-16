@@ -44,5 +44,5 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
         ];
     }
 
-    abstract protected function getJsonPayload(): array;
+    public abstract function getJsonPayload(): array;
 }

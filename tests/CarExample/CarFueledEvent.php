@@ -24,7 +24,7 @@ class CarFueledEvent extends AbstractAggregateEvent
         return $this->fuelAdded;
     }
 
-    protected function getJsonPayload(): array
+    public function getJsonPayload(): array
     {
         return [
             'fuelAdded' => $this->fuelAdded
