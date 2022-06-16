@@ -8,6 +8,8 @@ use ReflectionClass;
 
 abstract class AbstractAggregateEvent implements AggregateEventInterface
 {
+    private const FORMAT_TIMESTAMP = 'Y-m-d H:i:sP';
+
     protected AggregateUuidInterface $aggregateUuid;
     protected DateTimeInterface $createdAt;
 
@@ -38,7 +40,7 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
             'aggregateUuid' => (string)$this->getAggregateUuid(),
             'eventName' => $this->getEventName(),
             'payload' => $this->getJsonPayload(),
-            'createdAt' => $this->getCreatedAt(),
+            'createdAt' => $this->getCreatedAt()->format(self::FORMAT_TIMESTAMP),
         ];
     }
 
