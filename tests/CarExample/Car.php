@@ -3,6 +3,7 @@
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
 class Car extends AbstractAggregateRoot
@@ -35,13 +36,29 @@ class Car extends AbstractAggregateRoot
 
         $this->fuel -= $fuelNeeded;
 
-        $this->pushEvent(new CarDroveDistanceEvent($distanceInKilometers, $fuelNeeded));
+        $this->pushEvent(new CarDroveDistanceEvent(
+            $this->getUuid(),
+            $distanceInKilometers,
+            $fuelNeeded
+        ));
     }
 
     public function tankFuel(float $addLiters): void
     {
         $this->fuel += $addLiters;
 
-        $this->pushEvent(new CarFueledEvent($addLiters));
+        $this->pushEvent(new CarFueledEvent(
+            $this->getUuid(),
+            $addLiters
+        ));
+    }
+
+    protected function getCreatedEvent(): ?AggregateEventInterface
+    {
+        return new CarCreatedEvent(
+            $this->getUuid(),
+            $this->getFuel(),
+            $this->fuelConsumption
+        );
     }
 }

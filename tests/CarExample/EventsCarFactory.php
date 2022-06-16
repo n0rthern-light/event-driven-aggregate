@@ -2,7 +2,7 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use JsonSerializable;
+use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 use Nlf\Component\Event\Aggregate\EventsAggregateFactory;
 
@@ -28,15 +28,21 @@ class EventsCarFactory implements EventsAggregateFactory
     {
         $sum = 0;
 
-        /** @var JsonSerializable $event */
+        /** @var AggregateEventInterface $event */
         foreach($events as $event) {
-            $eventJson = $event->jsonSerialize();
-            if (isset($eventJson['fuelAdded'])) {
-                $sum += (float)$eventJson['fuelAdded'];
+            if ($event->getEventName() === 'CarCreatedEvent') {
+                /** @var CarCreatedEvent $event */
+                $sum += $event->getFuel();
             }
 
-            if (isset($eventJson['fuelConsumed'])) {
-                $sum -= (float)$eventJson['fuelConsumed'];
+            if ($event->getEventName() === 'CarFueledEvent') {
+                /** @var CarFueledEvent $event */
+                $sum += $event->getFuelAdded();
+            }
+
+            if ($event->getEventName() === 'CarDroveDistanceEvent') {
+                /** @var CarDroveDistanceEvent $event */
+                $sum -= $event->getFuelConsumed();
             }
         }
 
@@ -45,21 +51,16 @@ class EventsCarFactory implements EventsAggregateFactory
 
     private function getFuelConsumption(array $events): float
     {
-        $fuelConsumed = 0;
-        $mileage = 0;
+        $consumption = null;
 
-        /** @var JsonSerializable $event */
+        /** @var AggregateEventInterface $event */
         foreach($events as $event) {
-            $eventJson = $event->jsonSerialize();
-            if (isset($eventJson['distance'])) {
-                $mileage += (float)$eventJson['distance'];
-            }
-
-            if (isset($eventJson['fuelConsumed'])) {
-                $fuelConsumed += (float)$eventJson['fuelConsumed'];
+            if ($event->getEventName() === 'CarCreatedEvent') {
+                /** @var CarCreatedEvent $event */
+                $consumption = $event->getFuelConsumption();
             }
         }
 
-        return $fuelConsumed / $mileage;
+        return $consumption;
     }
 }

@@ -2,18 +2,29 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use JsonSerializable;
+use DateTimeInterface;
+use Nlf\Component\Event\Aggregate\AbstractAggregateEvent;
+use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
-class CarFueledEvent implements JsonSerializable
+class CarFueledEvent extends AbstractAggregateEvent
 {
     private float $fuelAdded;
 
-    public function __construct(float $fuelAdded)
-    {
+    public function __construct(
+        AggregateUuidInterface $aggregateUuid,
+        float $fuelAdded,
+        ?DateTimeInterface $createdAt = null
+    ) {
+        parent::__construct($aggregateUuid, $createdAt);
         $this->fuelAdded = $fuelAdded;
     }
 
-    public function jsonSerialize(): array
+    public function getFuelAdded(): float
+    {
+        return $this->fuelAdded;
+    }
+
+    protected function getJsonPayload(): array
     {
         return [
             'fuelAdded' => $this->fuelAdded

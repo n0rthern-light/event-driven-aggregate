@@ -3,6 +3,7 @@
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\ProjectionServiceInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
 
@@ -16,11 +17,11 @@ class ProjectionService implements ProjectionServiceInterface
             }
 
             $carMileage = 0;
-            /** @var \JsonSerializable $event */
+            /** @var AggregateEventInterface $event */
             foreach ($events as $event) {
-                $eventJson = $event->jsonSerialize();
-                if (isset($eventJson['distance'])) {
-                    $carMileage += (float)$eventJson['distance'];
+                if ($event->getEventName() === 'CarDroveDistanceEvent') {
+                    /** @var CarDroveDistanceEvent $event */
+                    $carMileage += $event->getDistance();
                 }
             }
 

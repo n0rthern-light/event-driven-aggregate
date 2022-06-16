@@ -4,7 +4,7 @@ namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
-class Md5Uuid implements AggregateUuidInterface
+class Uuid implements AggregateUuidInterface
 {
     private string $value;
 

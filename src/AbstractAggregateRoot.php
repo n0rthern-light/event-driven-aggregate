@@ -4,6 +4,7 @@ namespace Nlf\Component\Event\Aggregate;
 
 abstract class AbstractAggregateRoot
 {
+    /** @var AggregateEventInterface[] */
     private static array $events = [];
 
     protected AggregateUuidInterface $uuid;
@@ -18,6 +19,7 @@ abstract class AbstractAggregateRoot
         return $this->uuid;
     }
 
+    /** @return AggregateEventInterface[] */
     public function pullEvents(): array
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
@@ -32,7 +34,20 @@ abstract class AbstractAggregateRoot
         return $events;
     }
 
-    protected function pushEvent(object $event): void
+    public function markAsJustCreated(): static
+    {
+        $event = $this->getCreatedEvent();
+
+        if ($event) {
+            $this->pushEvent($event);
+        }
+
+        return $this;
+    }
+
+    protected abstract function getCreatedEvent(): ?AggregateEventInterface;
+
+    protected function pushEvent(AggregateEventInterface $event): void
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
         $this->pushEventOnStream($streamKey, $event);
@@ -49,7 +64,7 @@ abstract class AbstractAggregateRoot
             \is_array(self::$events[$streamKey]);
     }
 
-    private function pushEventOnStream(string $streamKey, object $event): void
+    private function pushEventOnStream(string $streamKey, AggregateEventInterface $event): void
     {
         if ($this->eventStreamExists($streamKey)) {
             self::$events[$streamKey][] = $event;

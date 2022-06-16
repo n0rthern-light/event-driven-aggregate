@@ -3,14 +3,17 @@
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use JsonSerializable;
-use Nlf\Component\Event\Aggregate\Tests\Common\Md5Uuid;
+use Nlf\Component\Event\Aggregate\AggregateEventInterface;
+use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class AbstractAggregateRootTest extends TestCase
 {
     public function test(): void
     {
-        $car = new Car(new Md5Uuid(), 50, 10 / 100);
+        $car = (new Car(new Uuid(), 50, 10 / 100))
+            ->markAsJustCreated();
+
         $car->driveDistance(100);
         $car->tankFuel(20);
         $car->driveDistance(30);
@@ -18,20 +21,21 @@ class AbstractAggregateRootTest extends TestCase
         $events = $car->pullEvents();
 
         $this->assertIsArray($events);
-        $this->assertEquals(3, \count($events));
+        $this->assertEquals(4, \count($events));
         $this->assertEquals(57, $car->getFuel());
 
         $eventsFuel = 50;
-        /** @var JsonSerializable $event */
-        foreach($events as $event) {
-            $eventPayload = $event->jsonSerialize();
 
-            if (isset($eventPayload['fuelConsumed'])) {
-                $eventsFuel -= (float)$eventPayload['fuelConsumed'];
+        /** @var AggregateEventInterface $event */
+        foreach($events as $event) {
+            if ($event->getEventName() === 'CarDroveDistanceEvent') {
+                /** @var CarDroveDistanceEvent $event */
+                $eventsFuel -= $event->getFuelConsumed();
             }
 
-            if (isset($eventPayload['fuelAdded'])) {
-                $eventsFuel += (float)$eventPayload['fuelAdded'];
+            if ($event->getEventName() === 'CarFueledEvent') {
+                /** @var CarFueledEvent $event */
+                $eventsFuel += $event->getFuelAdded();
             }
         }
 

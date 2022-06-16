@@ -6,37 +6,38 @@ use DateTimeInterface;
 use Nlf\Component\Event\Aggregate\AbstractAggregateEvent;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
 
-class CarDroveDistanceEvent extends AbstractAggregateEvent
+class CarCreatedEvent extends AbstractAggregateEvent
 {
-    private float $distance;
-    private float $fuelConsumed;
+    private float $fuel;
+    private float $fuelConsumption;
 
     public function __construct(
         AggregateUuidInterface $aggregateUuid,
-        float $distance,
-        float $fuelConsumed,
+        float $fuel,
+        float $fuelConsumption,
         ?DateTimeInterface $createdAt = null
     ) {
         parent::__construct($aggregateUuid, $createdAt);
-        $this->distance = $distance;
-        $this->fuelConsumed = $fuelConsumed;
+
+        $this->fuel = $fuel;
+        $this->fuelConsumption = $fuelConsumption;
     }
 
-    public function getDistance(): float
+    public function getFuel(): float
     {
-        return $this->distance;
+        return $this->fuel;
     }
 
-    public function getFuelConsumed(): float
+    public function getFuelConsumption(): float
     {
-        return $this->fuelConsumed;
+        return $this->fuelConsumption;
     }
 
     protected function getJsonPayload(): array
     {
         return [
-            'distance' => $this->distance,
-            'fuelConsumed' => $this->fuelConsumed,
+            'fuel' => $this->fuel,
+            'fuelConsumption' => $this->fuelConsumption,
         ];
     }
 }
