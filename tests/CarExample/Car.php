@@ -2,6 +2,7 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
+use DateTime;
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
@@ -51,6 +52,13 @@ class Car extends AbstractAggregateRoot
             $this->getUuid(),
             $addLiters
         ));
+    }
+
+    public function markAsJustCreated(): static
+    {
+        $this->pushEvent(new CarCreatedEvent($this->uuid, $this->fuel, $this->fuelConsumption, new DateTime()));
+
+        return $this;
     }
 
     protected function getCreatedEvent(): ?AggregateEventInterface

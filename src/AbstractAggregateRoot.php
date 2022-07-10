@@ -34,19 +34,6 @@ abstract class AbstractAggregateRoot
         return $events;
     }
 
-    public function markAsJustCreated(): static
-    {
-        $event = $this->getCreatedEvent();
-
-        if ($event) {
-            $this->pushEvent($event);
-        }
-
-        return $this;
-    }
-
-    protected abstract function getCreatedEvent(): ?AggregateEventInterface;
-
     protected function pushEvent(AggregateEventInterface $event): void
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
