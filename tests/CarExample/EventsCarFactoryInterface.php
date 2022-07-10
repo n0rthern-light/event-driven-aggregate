@@ -4,9 +4,9 @@ namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
-use Nlf\Component\Event\Aggregate\EventsAggregateFactory;
+use Nlf\Component\Event\Aggregate\EventsAggregateFactoryInterface;
 
-class EventsCarFactory implements EventsAggregateFactory
+class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
 {
     private AggregateUuidInterface $uuid;
 

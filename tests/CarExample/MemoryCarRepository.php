@@ -27,7 +27,7 @@ class MemoryCarRepository implements CarRepositoryInterface
             return null;
         }
 
-        return (new EventsCarFactory($uuid))->create($events);
+        return (new EventsCarFactoryInterface($uuid))->create($events);
     }
 
     public function save(Car $car): void

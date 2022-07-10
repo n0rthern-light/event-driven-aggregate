@@ -2,7 +2,7 @@
 
 namespace Nlf\Component\Event\Aggregate;
 
-interface EventsAggregateFactory
+interface EventsAggregateFactoryInterface
 {
     /**
      * @param AggregateEventInterface[] $byEvents
