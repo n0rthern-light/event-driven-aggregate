@@ -4,6 +4,7 @@ namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\EventCollectionInterface;
 use Nlf\Component\Event\Aggregate\EventsAggregateFactoryInterface;
 
 class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
@@ -15,12 +16,12 @@ class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
         $this->uuid = $uuid;
     }
 
-    public function create(array $byEvents): Car
+    public function create(EventCollectionInterface $byEvents): Car
     {
         return new Car(
             $this->uuid,
-            $this->getCurrentFuel($byEvents),
-            $this->getFuelConsumption($byEvents)
+            $this->getCurrentFuel($byEvents->toArray()),
+            $this->getFuelConsumption($byEvents->toArray())
         );
     }
 

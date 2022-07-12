@@ -19,7 +19,7 @@ class AggregateEventsHandler
     {
         $events = $aggregate->pullEvents();
 
-        if (\count($events) === 0) {
+        if ($events->isEmpty()) {
             return;
         }
 

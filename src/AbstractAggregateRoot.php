@@ -19,19 +19,18 @@ abstract class AbstractAggregateRoot
         return $this->uuid;
     }
 
-    /** @return AggregateEventInterface[] */
-    public function pullEvents(): array
+    public function pullEvents(): EventCollectionInterface
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
 
         if (!$this->eventStreamExists($streamKey)) {
-            return [];
+            return new EventCollection();
         }
 
         $events = self::$events[$streamKey];
         unset(self::$events[$streamKey]);
 
-        return $events;
+        return new EventCollection(...$events);
     }
 
     protected function pushEvent(AggregateEventInterface $event): void

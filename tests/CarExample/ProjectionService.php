@@ -4,13 +4,16 @@ namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
+use Nlf\Component\Event\Aggregate\EventCollectionInterface;
 use Nlf\Component\Event\Aggregate\ProjectionServiceInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
 
 class ProjectionService implements ProjectionServiceInterface
 {
-    public function execute(AbstractAggregateRoot $aggregate, array $events): void
+    public function execute(AbstractAggregateRoot $aggregate, EventCollectionInterface $events): void
     {
+        $events = $events->toArray();
+
         if ($aggregate::class === Car::class) {
             if (!isset(MemoryDatabase::$array['view'])) {
                 MemoryDatabase::$array['view'] = [];

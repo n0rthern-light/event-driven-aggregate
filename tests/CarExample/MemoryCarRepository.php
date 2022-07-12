@@ -23,7 +23,7 @@ class MemoryCarRepository implements CarRepositoryInterface
     {
         $events = $this->eventStore->getEvents($uuid);
 
-        if (\count($events) === 0) {
+        if ($events->isEmpty()) {
             return null;
         }
 

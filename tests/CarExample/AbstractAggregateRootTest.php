@@ -18,7 +18,7 @@ class AbstractAggregateRootTest extends TestCase
         $car->tankFuel(20);
         $car->driveDistance(30);
 
-        $events = $car->pullEvents();
+        $events = $car->pullEvents()->toArray();
 
         $this->assertIsArray($events);
         $this->assertEquals(4, \count($events));
@@ -41,7 +41,7 @@ class AbstractAggregateRootTest extends TestCase
 
         $this->assertEquals(57, $eventsFuel);
 
-        $events = $car->pullEvents();
+        $events = $car->pullEvents()->toArray();
         $this->assertIsArray($events);
         $this->assertEquals(0, \count($events));
     }

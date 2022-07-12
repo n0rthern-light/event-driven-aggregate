@@ -10,8 +10,10 @@ class Uuid implements AggregateUuidInterface
 
     public function __construct(?string $value = null)
     {
-        if ($value) {
+        if ($value !== null) {
             $this->value = $value;
+
+            return;
         }
 
         $this->value = \md5((string)\mt_rand(PHP_INT_MIN, PHP_INT_MAX));
