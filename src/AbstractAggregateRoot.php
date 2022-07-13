@@ -8,10 +8,18 @@ abstract class AbstractAggregateRoot
     private static array $events = [];
 
     protected UuidInterface $uuid;
+    private bool $fresh;
 
-    protected function __construct(UuidInterface $uuid)
+    protected function __construct(?UuidInterface $uuid)
     {
+        if (!$uuid) {
+            $this->uuid = new RamseyUuid();
+            $this->fresh = true;
+            return;
+        }
+
         $this->uuid = $uuid;
+        $this->fresh = false;
     }
 
     public function getUuid(): UuidInterface
@@ -37,6 +45,15 @@ abstract class AbstractAggregateRoot
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
         $this->pushEventOnStream($streamKey, $event);
+    }
+
+    protected function whenFresh(\Closure $p): void
+    {
+        if (!$this->fresh) {
+            return;
+        }
+
+        $p($this);
     }
 
     private function buildStreamKey(string $class, string $uuid): string

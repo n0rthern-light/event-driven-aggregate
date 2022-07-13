@@ -2,21 +2,18 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use DateTimeInterface;
 use Nlf\Component\Event\Aggregate\AbstractAggregateEvent;
-use Nlf\Component\Event\Aggregate\UuidInterface;
+use Nlf\Component\Event\Aggregate\EventProps;
 
 class CarFueledEvent extends AbstractAggregateEvent
 {
     private float $fuelAdded;
 
     public function __construct(
-        UuidInterface $eventUuid,
-        UuidInterface $aggregateUuid,
+        EventProps $props,
         float $fuelAdded,
-        ?DateTimeInterface $createdAt = null
     ) {
-        parent::__construct($eventUuid, $aggregateUuid, $createdAt);
+        parent::__construct($props);
         $this->fuelAdded = $fuelAdded;
     }
 

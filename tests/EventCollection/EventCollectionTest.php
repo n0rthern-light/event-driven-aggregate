@@ -4,6 +4,7 @@ namespace Nlf\Component\Event\Aggregate\Tests\EventCollection;
 
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\EventCollection;
+use Nlf\Component\Event\Aggregate\EventProps;
 use Nlf\Component\Event\Aggregate\Tests\CarExample\CarCreatedEvent;
 use Nlf\Component\Event\Aggregate\Tests\CarExample\CarFueledEvent;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
@@ -13,50 +14,45 @@ class AbstractAggregateRootTest extends TestCase
 {
     private EventCollection $collection;
 
+    private function eventPropsFactory(string $aggregateUuid, string $dateTimeStr): EventProps
+    {
+        return new EventProps(
+            new Uuid(), new Uuid($aggregateUuid), \DateTime::createFromFormat('Y-m-d H:i:s', $dateTimeStr)
+        );
+    }
+
     public function setUp(): void
     {
         parent::setUp();
 
         $this->collection = new EventCollection(
             new CarCreatedEvent(
-                new Uuid(),
-                new Uuid('a1e1'),
+                $this->eventPropsFactory('a1e1', '2022-10-15 00:00:00'),
                 10,
                 10,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-15 00:00:00')
             ),
             new CarCreatedEvent(
-                new Uuid(),
-                new Uuid('a1e2'),
+                $this->eventPropsFactory('a1e2', '2022-10-14 00:00:00'),
                 10,
                 10,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-14 00:00:00')
             ),
             new CarFueledEvent(
-                new Uuid(),
-                new Uuid('a1e4'),
+                $this->eventPropsFactory('a1e4', '2022-10-11 00:00:00'),
                 15,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-11 00:00:00')
             ),
             new CarFueledEvent(
-                new Uuid(),
-                new Uuid('a1e3'),
+                $this->eventPropsFactory('a1e3', '2022-10-10 23:59:59'),
                 15,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-10 23:59:59')
             ),
             new CarCreatedEvent(
-                new Uuid(),
-                new Uuid('a1e5'),
+                $this->eventPropsFactory('a1e5', '2022-10-15 12:00:00'),
                 10,
                 10,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-15 12:00:00')
             ),
             new CarCreatedEvent(
-                new Uuid(),
-                new Uuid('a1e6'),
+                $this->eventPropsFactory('a1e6', '2022-10-15 12:00:01'),
                 10,
                 10,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-15 12:00:01')
             ),
         );
     }
@@ -88,11 +84,9 @@ class AbstractAggregateRootTest extends TestCase
     {
         $this->collection->add(
             new CarCreatedEvent(
-                new Uuid(),
-                new Uuid('a1e7'),
+                $this->eventPropsFactory('a1e7', '2020-10-15 12:00:01'),
                 10,
                 10,
-                \DateTime::createFromFormat('Y-m-d H:i:s', '2020-10-15 12:00:01')
             )
         );
         /** @var AggregateEventInterface $last */

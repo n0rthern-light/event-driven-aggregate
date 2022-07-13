@@ -5,6 +5,7 @@ namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 use DateTime;
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
+use Nlf\Component\Event\Aggregate\EventProps;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
 use Nlf\Component\Event\Aggregate\UuidInterface;
 
@@ -15,8 +16,8 @@ class Car extends AbstractAggregateRoot
 
     public function __construct(
         UuidInterface $uuid,
-        float         $fuel,
-        float         $fuelConsumption
+        float $fuel,
+        float $fuelConsumption
     ) {
         parent::__construct($uuid);
         $this->fuel = $fuel;
@@ -39,8 +40,7 @@ class Car extends AbstractAggregateRoot
         $this->fuel -= $fuelNeeded;
 
         $this->pushEvent(new CarDroveDistanceEvent(
-            new Uuid(),
-            $this->getUuid(),
+            new EventProps(new Uuid(), $this->uuid),
             $distanceInKilometers,
             $fuelNeeded
         ));
@@ -51,15 +51,20 @@ class Car extends AbstractAggregateRoot
         $this->fuel += $addLiters;
 
         $this->pushEvent(new CarFueledEvent(
-            new Uuid(),
-            $this->getUuid(),
+            new EventProps(new Uuid(), $this->uuid),
             $addLiters
         ));
     }
 
     public function markAsJustCreated(): static
     {
-        $this->pushEvent(new CarCreatedEvent(new Uuid(), $this->uuid, $this->fuel, $this->fuelConsumption, new DateTime()));
+        $this->pushEvent(
+            new CarCreatedEvent(
+                new EventProps(new Uuid(), $this->uuid),
+                $this->fuel,
+                $this->fuelConsumption
+            )
+        );
 
         return $this;
     }
@@ -67,8 +72,7 @@ class Car extends AbstractAggregateRoot
     protected function getCreatedEvent(): ?AggregateEventInterface
     {
         return new CarCreatedEvent(
-            new Uuid(),
-            $this->getUuid(),
+            new EventProps(new Uuid(), $this->uuid),
             $this->getFuel(),
             $this->fuelConsumption
         );

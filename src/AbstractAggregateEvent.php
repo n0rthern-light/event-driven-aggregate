@@ -2,7 +2,6 @@
 
 namespace Nlf\Component\Event\Aggregate;
 
-use DateTimeImmutable;
 use DateTimeInterface;
 use ReflectionClass;
 
@@ -10,33 +9,27 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
 {
     private const FORMAT_TIMESTAMP = 'Y-m-d H:i:sP';
 
-    protected UuidInterface $eventUuid;
-    protected UuidInterface $aggregateUuid;
-    protected DateTimeInterface $createdAt;
+    private EventProps $props;
 
     public function __construct(
-        UuidInterface $eventUuid,
-        UuidInterface $aggregateUuid,
-        ?DateTimeInterface $createdAt = null
+        EventProps $props
     ) {
-        $this->eventUuid = $eventUuid;
-        $this->aggregateUuid = $aggregateUuid;
-        $this->createdAt = $createdAt ?: new DateTimeImmutable();
+        $this->props = $props;
     }
 
     public function getEventUuid(): UuidInterface
     {
-        return $this->eventUuid;
+        return $this->props->getEventUuid();
     }
 
     public function getAggregateUuid(): UuidInterface
     {
-        return $this->aggregateUuid;
+        return $this->props->getAggregateUuid();
     }
 
     public function getCreatedAt(): DateTimeInterface
     {
-        return $this->createdAt;
+        return $this->props->getCreatedAt();
     }
 
     public function getEventName(): string
