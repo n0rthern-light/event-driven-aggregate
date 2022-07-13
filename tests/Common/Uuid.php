@@ -2,9 +2,9 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
-use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\UuidInterface;
 
-class Uuid implements AggregateUuidInterface
+class Uuid implements UuidInterface
 {
     private string $value;
 

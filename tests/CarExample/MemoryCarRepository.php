@@ -3,7 +3,7 @@
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
-use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\UuidInterface;
 use Nlf\Component\Event\Aggregate\EventStoreInterface;
 
 class MemoryCarRepository implements CarRepositoryInterface
@@ -19,7 +19,7 @@ class MemoryCarRepository implements CarRepositoryInterface
         $this->aggregateEventsHandler = $aggregateEventsHandler;
     }
 
-    public function get(AggregateUuidInterface $uuid): ?Car
+    public function get(UuidInterface $uuid): ?Car
     {
         $events = $this->eventStore->getEvents($uuid);
 

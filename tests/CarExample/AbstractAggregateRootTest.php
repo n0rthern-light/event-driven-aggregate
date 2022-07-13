@@ -2,7 +2,6 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use JsonSerializable;
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
 use PHPUnit\Framework\TestCase;

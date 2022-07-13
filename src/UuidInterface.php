@@ -2,7 +2,7 @@
 
 namespace Nlf\Component\Event\Aggregate;
 
-interface AggregateUuidInterface
+interface UuidInterface
 {
     public function __toString(): string;
 }

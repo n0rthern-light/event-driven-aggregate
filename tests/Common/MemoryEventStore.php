@@ -3,7 +3,7 @@
 namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
 use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
-use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\UuidInterface;
 use Nlf\Component\Event\Aggregate\EventCollection;
 use Nlf\Component\Event\Aggregate\EventCollectionInterface;
 use Nlf\Component\Event\Aggregate\EventStoreInterface;
@@ -21,7 +21,7 @@ class MemoryEventStore implements EventStoreInterface
         }
     }
 
-    public function getEvents(AggregateUuidInterface $uuid): EventCollectionInterface
+    public function getEvents(UuidInterface $uuid): EventCollectionInterface
     {
         return new EventCollection(...($this->store[(string)$uuid] ?? []));
     }

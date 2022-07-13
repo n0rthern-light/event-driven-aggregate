@@ -19,34 +19,40 @@ class AbstractAggregateRootTest extends TestCase
 
         $this->collection = new EventCollection(
             new CarCreatedEvent(
+                new Uuid(),
                 new Uuid('a1e1'),
                 10,
                 10,
                 \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-15 00:00:00')
             ),
             new CarCreatedEvent(
+                new Uuid(),
                 new Uuid('a1e2'),
                 10,
                 10,
                 \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-14 00:00:00')
             ),
             new CarFueledEvent(
+                new Uuid(),
                 new Uuid('a1e4'),
                 15,
                 \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-11 00:00:00')
             ),
             new CarFueledEvent(
+                new Uuid(),
                 new Uuid('a1e3'),
                 15,
                 \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-10 23:59:59')
             ),
             new CarCreatedEvent(
+                new Uuid(),
                 new Uuid('a1e5'),
                 10,
                 10,
                 \DateTime::createFromFormat('Y-m-d H:i:s', '2022-10-15 12:00:00')
             ),
             new CarCreatedEvent(
+                new Uuid(),
                 new Uuid('a1e6'),
                 10,
                 10,
@@ -82,6 +88,7 @@ class AbstractAggregateRootTest extends TestCase
     {
         $this->collection->add(
             new CarCreatedEvent(
+                new Uuid(),
                 new Uuid('a1e7'),
                 10,
                 10,

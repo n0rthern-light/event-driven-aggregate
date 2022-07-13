@@ -2,18 +2,18 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\UuidInterface;
 
 class CarView
 {
-    private AggregateUuidInterface $uuid;
+    private UuidInterface $uuid;
     private float $millageInKilometers;
     private float $fuelLevelInLiters;
 
     public function __construct(
-        AggregateUuidInterface $uuid,
-        float $millageInKilometers,
-        float $fuelLevelInLiters
+        UuidInterface $uuid,
+        float         $millageInKilometers,
+        float         $fuelLevelInLiters
     ) {
         $this->uuid = $uuid;
         $this->millageInKilometers = $millageInKilometers;

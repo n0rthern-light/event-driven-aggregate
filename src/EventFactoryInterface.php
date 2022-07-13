@@ -7,9 +7,9 @@ use DateTimeInterface;
 interface EventFactoryInterface
 {
     public function create(
-        string $eventName,
-        AggregateUuidInterface $aggregateUuid,
+        string            $eventName,
+        UuidInterface     $aggregateUuid,
         DateTimeInterface $createdAt,
-        array $payload
+        array             $payload
     ): AggregateEventInterface;
 }

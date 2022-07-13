@@ -7,14 +7,14 @@ abstract class AbstractAggregateRoot
     /** @var AggregateEventInterface[] */
     private static array $events = [];
 
-    protected AggregateUuidInterface $uuid;
+    protected UuidInterface $uuid;
 
-    protected function __construct(AggregateUuidInterface $uuid)
+    protected function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
 
-    public function getUuid(): AggregateUuidInterface
+    public function getUuid(): UuidInterface
     {
         return $this->uuid;
     }

@@ -10,16 +10,26 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
 {
     private const FORMAT_TIMESTAMP = 'Y-m-d H:i:sP';
 
-    protected AggregateUuidInterface $aggregateUuid;
+    protected UuidInterface $eventUuid;
+    protected UuidInterface $aggregateUuid;
     protected DateTimeInterface $createdAt;
 
-    public function __construct(AggregateUuidInterface $aggregateUuid, ?DateTimeInterface $createdAt = null)
-    {
+    public function __construct(
+        UuidInterface $eventUuid,
+        UuidInterface $aggregateUuid,
+        ?DateTimeInterface $createdAt = null
+    ) {
+        $this->eventUuid = $eventUuid;
         $this->aggregateUuid = $aggregateUuid;
         $this->createdAt = $createdAt ?: new DateTimeImmutable();
     }
 
-    public function getAggregateUuid(): AggregateUuidInterface
+    public function getEventUuid(): UuidInterface
+    {
+        return $this->eventUuid;
+    }
+
+    public function getAggregateUuid(): UuidInterface
     {
         return $this->aggregateUuid;
     }
@@ -37,6 +47,7 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
     public function jsonSerialize(): array
     {
         return [
+            'eventUuid' => (string)$this->getEventUuid(),
             'aggregateUuid' => (string)$this->getAggregateUuid(),
             'eventName' => $this->getEventName(),
             'payload' => $this->getJsonPayload(),

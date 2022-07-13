@@ -3,15 +3,15 @@
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
 use Nlf\Component\Event\Aggregate\AggregateEventInterface;
-use Nlf\Component\Event\Aggregate\AggregateUuidInterface;
+use Nlf\Component\Event\Aggregate\UuidInterface;
 use Nlf\Component\Event\Aggregate\EventCollectionInterface;
 use Nlf\Component\Event\Aggregate\EventsAggregateFactoryInterface;
 
 class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
 {
-    private AggregateUuidInterface $uuid;
+    private UuidInterface $uuid;
 
-    public function __construct(AggregateUuidInterface $uuid)
+    public function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
