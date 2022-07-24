@@ -2,13 +2,13 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
-use Nlf\Component\Event\Aggregate\AggregateEventInterface;
-use Nlf\Component\Event\Aggregate\EventCollectionInterface;
-use Nlf\Component\Event\Aggregate\ProjectionServiceInterface;
+use Nlf\Component\Event\Aggregate\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\Event\EventCollectionInterface;
+use Nlf\Component\Event\Aggregate\Event\EventInterface;
+use Nlf\Component\Event\Aggregate\Event\EventProjectionServiceInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\MemoryDatabase;
 
-class ProjectionService implements ProjectionServiceInterface
+class ProjectionService implements EventProjectionServiceInterface
 {
     public function execute(AbstractAggregateRoot $aggregate, EventCollectionInterface $events): void
     {
@@ -20,7 +20,7 @@ class ProjectionService implements ProjectionServiceInterface
             }
 
             $carMileage = 0;
-            /** @var AggregateEventInterface $event */
+            /** @var EventInterface $event */
             foreach ($events as $event) {
                 if ($event->getEventName() === 'CarDroveDistanceEvent') {
                     /** @var CarDroveDistanceEvent $event */

@@ -1,11 +1,12 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 use DateTimeInterface;
 use JsonSerializable;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 
-interface AggregateEventInterface extends JsonSerializable
+interface EventInterface extends JsonSerializable
 {
     public function getEventName(): string;
     public function jsonSerialize(): array;

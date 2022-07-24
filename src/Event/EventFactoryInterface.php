@@ -1,6 +1,6 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 interface EventFactoryInterface
 {
@@ -8,5 +8,5 @@ interface EventFactoryInterface
         string $eventName,
         EventProps $props,
         array $payload
-    ): AggregateEventInterface;
+    ): EventInterface;
 }

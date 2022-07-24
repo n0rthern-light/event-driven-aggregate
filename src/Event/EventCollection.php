@@ -1,12 +1,12 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
 class EventCollection extends ArrayCollection implements EventCollectionInterface
 {
-    public function __construct(AggregateEventInterface ...$events)
+    public function __construct(EventInterface ...$events)
     {
         $eventsSorted = $events;
         $this->sortArrayByCreationDate($eventsSorted);
@@ -21,7 +21,7 @@ class EventCollection extends ArrayCollection implements EventCollectionInterfac
 
     public function filterByEventName(string $eventName): static
     {
-        return $this->filter(function(AggregateEventInterface $event) use ($eventName) {
+        return $this->filter(function(EventInterface $event) use ($eventName) {
             return $event->getEventName() === $eventName;
         });
     }
@@ -35,7 +35,7 @@ class EventCollection extends ArrayCollection implements EventCollectionInterfac
 
         $unique = [];
         foreach($eventGroups as $eventGroup) {
-            /** @var AggregateEventInterface|false $lastElement */
+            /** @var EventInterface|false $lastElement */
             if ($lastElement = \end($eventGroup)) {
                 $unique[$lastElement->getEventName()] = $lastElement;
             }
@@ -49,9 +49,14 @@ class EventCollection extends ArrayCollection implements EventCollectionInterfac
         return new self(...$this->toArray());
     }
 
+    public function hasEvent(string $eventName): bool
+    {
+        return !$this->filterByEventName($eventName)->isEmpty();
+    }
+
     private function sortArrayByCreationDate(array &$array): void
     {
-        \usort($array, function(AggregateEventInterface $a, AggregateEventInterface $b) {
+        \usort($array, function(EventInterface $a, EventInterface $b) {
             if ($a->getCreatedAt() === $b->getCreatedAt()) {
                 return 0;
             }
@@ -64,7 +69,7 @@ class EventCollection extends ArrayCollection implements EventCollectionInterfac
     {
         $groups = [];
 
-        $this->forAll(function($key, AggregateEventInterface $event) use (&$groups) {
+        $this->forAll(function($key, EventInterface $event) use (&$groups) {
             if (isset($groups[$event->getEventName()])) {
                 $groups[$event->getEventName()][] = $event;
             } else {

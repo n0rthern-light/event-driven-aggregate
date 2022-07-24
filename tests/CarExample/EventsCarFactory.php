@@ -2,12 +2,11 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AggregateEventInterface;
-use Nlf\Component\Event\Aggregate\UuidInterface;
-use Nlf\Component\Event\Aggregate\EventCollectionInterface;
-use Nlf\Component\Event\Aggregate\EventsAggregateFactoryInterface;
+use Nlf\Component\Event\Aggregate\Event\EventCollectionInterface;
+use Nlf\Component\Event\Aggregate\Event\EventInterface;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 
-class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
+class EventsCarFactory
 {
     private UuidInterface $uuid;
 
@@ -29,7 +28,7 @@ class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
     {
         $sum = 0;
 
-        /** @var AggregateEventInterface $event */
+        /** @var EventInterface $event */
         foreach($events as $event) {
             if ($event->getEventName() === 'CarCreatedEvent') {
                 /** @var CarCreatedEvent $event */
@@ -54,7 +53,7 @@ class EventsCarFactoryInterface implements EventsAggregateFactoryInterface
     {
         $consumption = null;
 
-        /** @var AggregateEventInterface $event */
+        /** @var EventInterface $event */
         foreach($events as $event) {
             if ($event->getEventName() === 'CarCreatedEvent') {
                 /** @var CarCreatedEvent $event */

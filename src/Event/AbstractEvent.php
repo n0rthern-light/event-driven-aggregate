@@ -1,11 +1,12 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 use DateTimeInterface;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 use ReflectionClass;
 
-abstract class AbstractAggregateEvent implements AggregateEventInterface
+abstract class AbstractEvent implements EventInterface
 {
     private const FORMAT_TIMESTAMP = 'Y-m-d H:i:sP';
 
@@ -37,6 +38,8 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
         return (new ReflectionClass($this))->getShortName();
     }
 
+    abstract public function getJsonPayload(): array;
+
     public function jsonSerialize(): array
     {
         return [
@@ -47,6 +50,4 @@ abstract class AbstractAggregateEvent implements AggregateEventInterface
             'createdAt' => $this->getCreatedAt()->format(self::FORMAT_TIMESTAMP),
         ];
     }
-
-    public abstract function getJsonPayload(): array;
 }

@@ -2,10 +2,10 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AbstractAggregateEvent;
-use Nlf\Component\Event\Aggregate\EventProps;
+use Nlf\Component\Event\Aggregate\Event\AbstractEvent;
+use Nlf\Component\Event\Aggregate\Event\EventProps;
 
-class CarCreatedEvent extends AbstractAggregateEvent
+class CarCreatedEvent extends AbstractEvent
 {
     private float $fuel;
     private float $fuelConsumption;

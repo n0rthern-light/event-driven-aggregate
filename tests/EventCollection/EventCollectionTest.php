@@ -2,9 +2,9 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\EventCollection;
 
-use Nlf\Component\Event\Aggregate\AggregateEventInterface;
-use Nlf\Component\Event\Aggregate\EventCollection;
-use Nlf\Component\Event\Aggregate\EventProps;
+use Nlf\Component\Event\Aggregate\Event\EventCollection;
+use Nlf\Component\Event\Aggregate\Event\EventInterface;
+use Nlf\Component\Event\Aggregate\Event\EventProps;
 use Nlf\Component\Event\Aggregate\Tests\CarExample\CarCreatedEvent;
 use Nlf\Component\Event\Aggregate\Tests\CarExample\CarFueledEvent;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
@@ -61,7 +61,7 @@ class AbstractAggregateRootTest extends TestCase
     {
         $filteredCollection = $this->collection->filterByEventName('CarFueledEvent');
         $this->assertEquals(2, $filteredCollection->count());
-        /** @var AggregateEventInterface $event */
+        /** @var EventInterface $event */
         $event = $filteredCollection->last();
         $this->assertEquals('a1e4', (string)$event->getAggregateUuid());
     }
@@ -71,9 +71,9 @@ class AbstractAggregateRootTest extends TestCase
         $uniqueCollection = $this->collection->lastAndUnique()->sortChronologically();
         $this->assertEquals(2, $uniqueCollection->count());
 
-        /** @var AggregateEventInterface $first */
+        /** @var EventInterface $first */
         $first = $uniqueCollection->first();
-        /** @var AggregateEventInterface $last */
+        /** @var EventInterface $last */
         $last = $uniqueCollection->last();
 
         $this->assertEquals('a1e4', (string)$first->getAggregateUuid());
@@ -89,7 +89,7 @@ class AbstractAggregateRootTest extends TestCase
                 10,
             )
         );
-        /** @var AggregateEventInterface $last */
+        /** @var EventInterface $last */
         $last = $this->collection->last();
         $this->assertEquals('a1e7', (string)$last->getAggregateUuid());
 

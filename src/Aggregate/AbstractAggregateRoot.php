@@ -1,10 +1,17 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Aggregate;
 
-abstract class AbstractAggregateRoot
+use JsonSerializable;
+use Nlf\Component\Event\Aggregate\Event\EventInterface;
+use Nlf\Component\Event\Aggregate\Event\EventCollection;
+use Nlf\Component\Event\Aggregate\Event\EventCollectionInterface;
+use Nlf\Component\Event\Aggregate\Shared\RamseyUuid;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
+
+abstract class AbstractAggregateRoot implements JsonSerializable
 {
-    /** @var AggregateEventInterface[] */
+    /** @var EventInterface[] */
     private static array $events = [];
 
     protected UuidInterface $uuid;
@@ -27,6 +34,16 @@ abstract class AbstractAggregateRoot
         return $this->uuid;
     }
 
+    public abstract function getJsonState(): array;
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'aggregateUuid' => (string)$this->uuid,
+            'state' => $this->getJsonState(),
+        ];
+    }
+
     public function pullEvents(): EventCollectionInterface
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
@@ -41,7 +58,7 @@ abstract class AbstractAggregateRoot
         return new EventCollection(...$events);
     }
 
-    protected function pushEvent(AggregateEventInterface $event): void
+    protected function pushEvent(EventInterface $event): void
     {
         $streamKey = $this->buildStreamKey(static::class, $this->uuid);
         $this->pushEventOnStream($streamKey, $event);
@@ -67,7 +84,7 @@ abstract class AbstractAggregateRoot
             \is_array(self::$events[$streamKey]);
     }
 
-    private function pushEventOnStream(string $streamKey, AggregateEventInterface $event): void
+    private function pushEventOnStream(string $streamKey, EventInterface $event): void
     {
         if ($this->eventStreamExists($streamKey)) {
             self::$events[$streamKey][] = $event;

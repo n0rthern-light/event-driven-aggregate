@@ -2,9 +2,9 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
-use Nlf\Component\Event\Aggregate\UuidInterface;
-use Nlf\Component\Event\Aggregate\EventStoreInterface;
+use Nlf\Component\Event\Aggregate\Aggregate\AggregateEventsHandler;
+use Nlf\Component\Event\Aggregate\Event\EventStoreInterface;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 
 class MemoryCarRepository implements CarRepositoryInterface
 {
@@ -27,7 +27,7 @@ class MemoryCarRepository implements CarRepositoryInterface
             return null;
         }
 
-        return (new EventsCarFactoryInterface($uuid))->create($events);
+        return (new EventsCarFactory($uuid))->create($events);
     }
 
     public function save(Car $car): void

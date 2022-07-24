@@ -2,8 +2,8 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AggregateEventsHandler;
-use Nlf\Component\Event\Aggregate\EventStoreInterface;
+use Nlf\Component\Event\Aggregate\Aggregate\AggregateEventsHandler;
+use Nlf\Component\Event\Aggregate\Event\EventStoreInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
 use Nlf\Component\Event\Aggregate\Tests\Common\MemoryEventStore;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +23,7 @@ class AggregateEventsHandlerTest extends TestCase
             $this->eventStore,
             new AggregateEventsHandler(
                 $this->eventStore,
+                null,
                 new ProjectionService()
             )
         );

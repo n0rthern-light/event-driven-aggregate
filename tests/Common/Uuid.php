@@ -2,7 +2,8 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\Common;
 
-use Nlf\Component\Event\Aggregate\UuidInterface;
+
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 
 class Uuid implements UuidInterface
 {

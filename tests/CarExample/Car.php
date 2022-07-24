@@ -2,12 +2,10 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use DateTime;
-use Nlf\Component\Event\Aggregate\AbstractAggregateRoot;
-use Nlf\Component\Event\Aggregate\AggregateEventInterface;
-use Nlf\Component\Event\Aggregate\EventProps;
+use Nlf\Component\Event\Aggregate\Aggregate\AbstractAggregateRoot;
+use Nlf\Component\Event\Aggregate\Event\EventProps;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
-use Nlf\Component\Event\Aggregate\UuidInterface;
 
 class Car extends AbstractAggregateRoot
 {
@@ -76,5 +74,10 @@ class Car extends AbstractAggregateRoot
             $this->getFuel(),
             $this->fuelConsumption
         );
+    }
+
+    public function getJsonState(): array
+    {
+        return \get_object_vars($this);
     }
 }

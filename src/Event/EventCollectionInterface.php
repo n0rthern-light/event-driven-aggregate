@@ -1,6 +1,6 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 use ArrayAccess;
 use Closure;
@@ -38,6 +38,7 @@ interface EventCollectionInterface extends Countable, IteratorAggregate, ArrayAc
     public function matching(Criteria $criteria);
 
     public function filterByEventName(string $eventName): static;
+    public function hasEvent(string $eventName): bool;
     public function lastAndUnique(): static;
     public function sortChronologically(): static;
 }

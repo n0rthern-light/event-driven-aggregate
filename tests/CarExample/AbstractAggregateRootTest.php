@@ -2,7 +2,7 @@
 
 namespace Nlf\Component\Event\Aggregate\Tests\CarExample;
 
-use Nlf\Component\Event\Aggregate\AggregateEventInterface;
+use Nlf\Component\Event\Aggregate\Event\EventInterface;
 use Nlf\Component\Event\Aggregate\Tests\Common\Uuid;
 use PHPUnit\Framework\TestCase;
 
@@ -25,7 +25,7 @@ class AbstractAggregateRootTest extends TestCase
 
         $eventsFuel = 50;
 
-        /** @var AggregateEventInterface $event */
+        /** @var EventInterface $event */
         foreach($events as $event) {
             if ($event->getEventName() === 'CarDroveDistanceEvent') {
                 /** @var CarDroveDistanceEvent $event */

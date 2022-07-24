@@ -1,6 +1,6 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Shared;
 
 use Ramsey\Uuid\Uuid;
 

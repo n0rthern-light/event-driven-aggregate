@@ -1,9 +1,11 @@
 <?php
 
-namespace Nlf\Component\Event\Aggregate;
+namespace Nlf\Component\Event\Aggregate\Event;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Nlf\Component\Event\Aggregate\Shared\RamseyUuid;
+use Nlf\Component\Event\Aggregate\Shared\UuidInterface;
 
 class EventProps
 {
